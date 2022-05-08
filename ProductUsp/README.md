@@ -5,4 +5,4 @@ A module to display a selection of unique selling points for every product in th
 The admin user is able to create as many USPs as desired, then these can be picked
 using a slide out modal in the product edit form.
 
-Removed client name with <removed> (breaks a few things)
+Removed client name with `<removed> (breaks everything)
