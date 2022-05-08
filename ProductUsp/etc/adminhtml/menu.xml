@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="<removed>_ProductUsp::cms_product_usp" title="Product USP" translate="title" module="<removed>_ProductUsp" sortOrder="60" parent="Magento_Backend::content_elements" action="productusp/productusp" resource="<removed>_ProductUsp::cms_product_usp"/>
+    </menu>
+</config>

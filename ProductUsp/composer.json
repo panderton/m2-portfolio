@@ -1,0 +1,22 @@
+{
+    "name": "<removed>/product-usp",
+    "description": "Create and assign USP to products",
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": [
+        "OSL-3.0"
+    ],
+    "authors": [
+        {
+            "name": "Philip Anderton",
+            "role": "Senior PHP Developer"
+        }
+    ],
+    "require": {
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ]
+    }
+}

@@ -1,0 +1,50 @@
+{
+    "cms_product_usp": {
+        "column": {
+            "usp_id": true,
+            "title": true,
+            "identifier": true,
+            "weight": true,
+            "content": true,
+            "creation_time": true,
+            "update_time": true,
+            "is_active": true
+        },
+        "index": {
+            "CMS_PRODUCT_USP_TITLE_IDENTIFIER_CONTENT": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "cms_product_usp_store": {
+        "column": {
+            "usp_id": true,
+            "store_id": true
+        },
+        "index": {
+            "CMS_PRODUCT_USP_STORE_STORE_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "CMS_PRODUCT_USP_STORE_USP_ID_CMS_PRODUCT_USP_USP_ID": true,
+            "CMS_PRODUCT_USP_STORE_STORE_ID_STORE_STORE_ID": true
+        }
+    },
+    "cms_product_usp_relation": {
+        "column": {
+            "relation_id": true,
+            "product_id": true,
+            "usp_id": true
+        },
+        "index": {
+            "CMS_PRODUCT_USP_RELATION_PRODUCT_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "CMS_PRD_USP_RELATION_PRD_ID_CAT_PRD_ENTT_ENTT_ID": true,
+            "CMS_PRODUCT_USP_RELATION_USP_ID_CMS_PRODUCT_USP_USP_ID": true,
+            "CMS_PRODUCT_USP_RELATION_PRODUCT_ID_USP_ID": true
+        }
+    }
+}

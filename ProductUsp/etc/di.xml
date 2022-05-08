@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="<removed>\ProductUsp\Api\Data\ProductUSPSearchResultsInterface"
+                type="<removed>\ProductUsp\Model\ProductUSPSearchResults" />
+    <preference for="<removed>\ProductUsp\Api\GetProductUSPByIdentifierInterface" type="<removed>\ProductUsp\Model\GetProductUSPByIdentifier" />
+    <preference for="<removed>\ProductUsp\Api\Data\ProductUSPInterface" type="<removed>\ProductUsp\Model\ProductUSP" />
+    <preference for="<removed>\ProductUsp\Api\ProductUSPRepositoryInterface" type="<removed>\ProductUsp\Model\ProductUSPRepository" />
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="productusp_productusp_listing_data_source" xsi:type="string"><removed>\ProductUsp\Model\ResourceModel\ProductUSP\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="<removed>\ProductUsp\Model\ResourceModel\ProductUSP\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">cms_product_usp</argument>
+            <argument name="eventPrefix" xsi:type="string">cms_product_usp_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">usp_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string"><removed>\ProductUsp\Model\ResourceModel\ProductUSP</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Model\Entity\RepositoryFactory">
+        <arguments>
+            <argument name="entities" xsi:type="array">
+                <item name="<removed>\ProductUsp\Api\Data\ProductUSPInterface" xsi:type="string"><removed>\ProductUsp\Api\ProductUSPRepositoryInterface</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="<removed>\ProductUsp\Api\Data\ProductUSPInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">cms_product_usp</item>
+                    <item name="identifierField" xsi:type="string">usp_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\Operation\ExtensionPool">
+        <arguments>
+            <argument name="extensionActions" xsi:type="array">
+                <item name="<removed>\ProductUsp\Api\Data\ProductUSPInterface" xsi:type="array">
+                    <item name="read" xsi:type="array">
+                        <item name="storeReader" xsi:type="string"><removed>\ProductUsp\Model\ResourceModel\ProductUSP\Relation\Store\ReadHandler</item>
+                    </item>
+                    <item name="create" xsi:type="array">
+                        <item name="storeCreator" xsi:type="string"><removed>\ProductUsp\Model\ResourceModel\ProductUSP\Relation\Store\SaveHandler</item>
+                    </item>
+                    <item name="update" xsi:type="array">
+                        <item name="storeUpdater" xsi:type="string"><removed>\ProductUsp\Model\ResourceModel\ProductUSP\Relation\Store\SaveHandler</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\HydratorPool">
+        <arguments>
+            <argument name="hydrators" xsi:type="array">
+                <item name="<removed>\ProductUsp\Api\Data\ProductUSPInterface" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="<removed>\ProductUsp\Model\Api\SearchCriteria\CollectionProcessor\ProductUSPFilterProcessor" type="Magento\Framework\Api\SearchCriteria\CollectionProcessor\FilterProcessor">
+        <arguments>
+            <argument name="customFilters" xsi:type="array">
+                <item name="store_id" xsi:type="object"><removed>\ProductUsp\Model\Api\SearchCriteria\CollectionProcessor\FilterProcessor\ProductUSPStoreFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="<removed>\ProductUsp\Model\Api\SearchCriteria\ProductUSPFilterProcessor" type="Magento\Framework\Api\SearchCriteria\CollectionProcessor">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="filters" xsi:type="object"><removed>\ProductUsp\Model\Api\SearchCriteria\CollectionProcessor\ProductUSPFilterProcessor</item>
+                <item name="sorting" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessor\SortingProcessor</item>
+                <item name="pagination" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessor\PaginationProcessor</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="<removed>\ProductUsp\Model\ProductUSPRepository">
+        <arguments>
+            <argument name="collectionProcessor" xsi:type="object"><removed>\ProductUsp\Model\Api\SearchCriteria\ProductUSPFilterProcessor</argument>
+        </arguments>
+    </type>
+    <!-- Product - USP Relation -->
+    <preference for="<removed>\ProductUsp\Api\Data\ProductUSPRelationInterface" type="<removed>\ProductUsp\Model\ProductUSPRelation"/>
+    <preference for="<removed>\ProductUsp\Api\ProductUSPRelationRepositoryInterface" type="<removed>\ProductUsp\Model\ProductUSPRelationRepository"/>
+</config>

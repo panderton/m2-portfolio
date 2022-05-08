@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="cms_product_usp" resource="default" engine="innodb" comment="CMS Product USP Table">
+        <column xsi:type="smallint" name="usp_id" padding="6" unsigned="true" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="varchar" name="title" nullable="false" length="255" comment="USP Title"/>
+        <column xsi:type="varchar" name="identifier" nullable="false" length="255" comment="USP String Identifier"/>
+        <column xsi:type="smallint" name="weight" unsigned="true" nullable="false" identity="false" default="0" comment="USP Weight"/>
+        <column xsi:type="mediumtext" name="content" nullable="true" comment="USP Content"/>
+        <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="USP Creation Time"/>
+        <column xsi:type="timestamp" name="update_time" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="USP Modification Time"/>
+        <column xsi:type="smallint" name="is_active" padding="6" unsigned="false" nullable="false" identity="false"
+                default="1" comment="Is USP Active"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="usp_id"/>
+        </constraint>
+        <index referenceId="CMS_PRODUCT_USP_TITLE_IDENTIFIER_CONTENT" indexType="fulltext">
+            <column name="title"/>
+            <column name="identifier"/>
+            <column name="content"/>
+        </index>
+    </table>
+    <table name="cms_product_usp_store" resource="default" engine="innodb" comment="CMS Product USP To Store Linkage Table">
+        <column xsi:type="smallint" name="usp_id" padding="6" unsigned="true" nullable="false" identity="false" />
+        <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false" identity="false"
+                comment="Store ID"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="usp_id"/>
+            <column name="store_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="CMS_PRODUCT_USP_STORE_USP_ID_CMS_PRODUCT_USP_USP_ID" table="cms_product_usp_store"
+                    column="usp_id" referenceTable="cms_product_usp" referenceColumn="usp_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="CMS_PRODUCT_USP_STORE_STORE_ID_STORE_STORE_ID" table="cms_product_usp_store"
+                    column="store_id" referenceTable="store" referenceColumn="store_id" onDelete="CASCADE"/>
+        <index referenceId="CMS_PRODUCT_USP_STORE_STORE_ID" indexType="btree">
+            <column name="store_id"/>
+        </index>
+    </table>
+    <table name="cms_product_usp_relation" resource="default" engine="innodb" comment="Product to USP Relation Table">
+        <column xsi:type="int" name="relation_id" padding="10" identity="true"
+                unsigned="true" nullable="false" comment="Entity ID" />
+        <column xsi:type="int" name="product_id" padding="10" identity="false"
+                unsigned="true" nullable="false" comment="Related Product ID" />
+        <column xsi:type="smallint" name="usp_id" padding="6" identity="false"
+                unsigned="true" nullable="false" comment="Related USP ID" />
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="relation_id" />
+            <column name="product_id" />
+            <column name="usp_id" />
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="PROD_USP_REL_PROD_ID_PROD_ID"
+                    table="cms_product_usp_relation" column="product_id"
+                    referenceTable="catalog_product_entity" referenceColumn="entity_id"
+                    onDelete="CASCADE" />
+        <constraint xsi:type="foreign" referenceId="PROD_USP_REL_USP_ID_USP_ID"
+                    table="cms_product_usp_relation" column="usp_id"
+                    referenceTable="cms_product_usp" referenceColumn="usp_id"
+                    onDelete="CASCADE" />
+        <constraint xsi:type="unique" referenceId="PROD_USP_REL_PROD_ID_USP_ID_KEY">
+            <column name="product_id" />
+            <column name="usp_id" />
+        </constraint>
+        <index referenceId="PROD_USP_REL_PROD_ID_INDEX" indexType="btree">
+            <column name="product_id" />
+        </index>
+    </table>
+</schema>
